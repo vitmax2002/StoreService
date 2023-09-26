@@ -10,7 +10,7 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private Double amount;
+    private double amount;
     @Enumerated(EnumType.STRING)
     private Type type;
 

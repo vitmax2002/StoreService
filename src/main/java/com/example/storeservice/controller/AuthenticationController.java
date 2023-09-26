@@ -4,14 +4,9 @@ import com.example.storeservice.feign.MovieService;
 import com.example.storeservice.model.Token;
 import com.example.storeservice.model.dto.AuthenticationDto;
 import com.example.storeservice.model.dto.AuthenticationResponseDto;
-import com.example.storeservice.model.dto.Film;
+import com.example.storeservice.model.dto.UserDto;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/authentication")
@@ -23,9 +18,17 @@ public class AuthenticationController {
         this.movieService = movieService;
     }
 
-    @PostMapping
+    @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponseDto> authenticate(@RequestBody AuthenticationDto authenticationDto){
-        Token.VALUE =movieService.authenticate(authenticationDto).getBody().token();
-        return ResponseEntity.ok().body(movieService.authenticate(authenticationDto).getBody());
+       AuthenticationResponseDto authenticationResponseDto= movieService.authenticate(authenticationDto).getBody();
+        Token.VALUE =authenticationResponseDto.token();
+        return ResponseEntity.ok().body(authenticationResponseDto);
     }
-}
+
+    @PostMapping("/register")
+    public ResponseEntity<Void> register(@RequestBody UserDto userDto){
+        Token.VALUE =movieService.register(userDto).getBody().token();
+        return ResponseEntity.noContent().build();
+        }
+    }
+

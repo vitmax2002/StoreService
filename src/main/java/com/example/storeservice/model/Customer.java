@@ -16,7 +16,7 @@ public class Customer {
 
     private LocalDate birthday;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Payment payment;
 
     public Customer(String firstName, String lastName, LocalDate birthday, Payment payment) {

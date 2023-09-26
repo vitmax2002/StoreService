@@ -11,11 +11,16 @@ public class StoreFilm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Customer customer;
-    private String filmName;
+    private Film film;
 
     public StoreFilm() {
+    }
+
+    public StoreFilm(Customer customer, Film film) {
+        this.customer = customer;
+        this.film = film;
     }
 
     public int getId() {
@@ -34,12 +39,12 @@ public class StoreFilm {
         this.customer = customer;
     }
 
-    public String getFilmName() {
-        return filmName;
+    public Film getFilm() {
+        return film;
     }
 
-    public void setFilmName(String filmName) {
-        this.filmName = filmName;
+    public void setFilm(Film film) {
+        this.film = film;
     }
 
     @Override
@@ -47,12 +52,12 @@ public class StoreFilm {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StoreFilm storeFilm = (StoreFilm) o;
-        return id == storeFilm.id && Objects.equals(customer, storeFilm.customer) && Objects.equals(filmName, storeFilm.filmName);
+        return id == storeFilm.id && Objects.equals(customer, storeFilm.customer) && Objects.equals(film, storeFilm.film);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customer, filmName);
+        return Objects.hash(id, customer, film);
     }
 
     @Override
@@ -60,7 +65,7 @@ public class StoreFilm {
         return "StoreFilm{" +
                 "id=" + id +
                 ", customer=" + customer +
-                ", filmName='" + filmName + '\'' +
+                ", film=" + film +
                 '}';
     }
 }
